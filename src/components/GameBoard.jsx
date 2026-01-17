@@ -6,18 +6,19 @@ const intialGameBoard = [
   [null, null, null],
 ];
 
-function GameBoard() {
-const[gameBoard,setGameBoard]=React.useState(intialGameBoard)
-const handleSelectSqure =(row,col)=>{
-setGameBoard((prevGameBoard)=>{
-  const newGameBoard =[...prevGameBoard.map(innerArray=>[...innerArray])]
-  newGameBoard[row][col]='X'
-  return newGameBoard
+function GameBoard({ onSelectSquare, activePlayer }) {
+  const [gameBoard, setGameBoard] = React.useState(intialGameBoard);
+  const handleSelectSqure = (row, col) => {
+    setGameBoard((prevGameBoard) => {
+      const newGameBoard = [
+        ...prevGameBoard.map((innerArray) => [...innerArray]),
+      ];
+      newGameBoard[row][col] = activePlayer;
+      return newGameBoard;
+    });
 
-})
-}
-
-
+    onSelectSquare();
+  };
 
   return (
     <div id="game-board">
@@ -26,7 +27,9 @@ setGameBoard((prevGameBoard)=>{
           <ol>
             {row.map((col, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleSelectSqure(rowIndex, colIndex)}>{col}</button>
+                <button onClick={() => handleSelectSqure(rowIndex, colIndex)}>
+                  {col}
+                </button>
               </li>
             ))}
           </ol>
